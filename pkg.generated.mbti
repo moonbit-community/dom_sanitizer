@@ -1,0 +1,73 @@
+// Generated using `moon info`, DON'T EDIT IT
+package "moonbit-community/dom_sanitizer"
+
+// Values
+pub let namespace_html : String
+
+pub let namespace_mathml : String
+
+pub let namespace_svg : String
+
+pub let parser_media_type_html : String
+
+pub let parser_media_type_xhtml : String
+
+pub fn sanitize(String, config? : Config) -> String
+
+// Errors
+
+// Types and methods
+pub(all) struct Config {
+  allowed_tags : Array[String]?
+  allowed_attr : Array[String]?
+  allowed_namespaces : Array[String]?
+  add_tags : Array[String]?
+  add_tag_check : ((String) -> Bool)?
+  add_attr : Array[String]?
+  add_attr_check : ((String, String) -> Bool)?
+  add_data_uri_tags : Array[String]?
+  add_uri_safe_attr : Array[String]?
+  allow_aria_attr : Bool
+  allow_data_attr : Bool
+  allow_unknown_protocols : Bool
+  allow_self_close_in_attr : Bool
+  forbid_tags : Array[String]?
+  forbid_attr : Array[String]?
+  forbid_contents : Array[String]?
+  add_forbid_contents : Array[String]?
+  force_body : Bool
+  keep_content : Bool
+  namespace_uri : String
+  parser_media_type : String
+  safe_for_templates : Bool
+  safe_for_xml : Bool
+  sanitize_dom : Bool
+  sanitize_named_props : Bool
+  whole_document : Bool
+  use_profiles : UseProfilesConfig?
+  custom_element_handling : CustomElementHandling?
+  allowed_uri_check : ((String) -> Bool)?
+  html_integration_points : Array[String]?
+  mathml_text_integration_points : Array[String]?
+}
+pub fn Config::default() -> Self
+
+pub(all) struct CustomElementHandling {
+  tag_name_check : ((String) -> Bool)?
+  attribute_name_check : ((String, String) -> Bool)?
+  allow_customized_built_in_elements : Bool
+}
+pub fn CustomElementHandling::default() -> Self
+
+pub(all) struct UseProfilesConfig {
+  html : Bool
+  svg : Bool
+  svg_filters : Bool
+  math_ml : Bool
+}
+pub fn UseProfilesConfig::default() -> Self
+
+// Type aliases
+
+// Traits
+
