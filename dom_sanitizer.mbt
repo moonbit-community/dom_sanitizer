@@ -23,6 +23,6 @@ pub let parser_media_type_xhtml = "application/xhtml+xml"
 ///
 /// This implementation delegates to DOMPurify and is limited to string
 /// input/output on the JS target.
-pub fn sanitize(input : String, config? : Config = Config::default()) -> String {
+pub fn sanitize(input : String, config~ : Config = Config::default()) -> String {
   sanitize_js(input, config)
 }
