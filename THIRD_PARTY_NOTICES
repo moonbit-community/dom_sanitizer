@@ -1,0 +1,15 @@
+DOMPurify 3.3.3
+https://github.com/cure53/DOMPurify/tree/3.3.3
+Copyright 2025 Dr.-Ing. Mario Heiderich, Cure53
+
+The allow lists, default policy tables, and sanitization rules in policy_data.mbt,
+policy.mbt, attributes.mbt, text.mbt, and sanitize.mbt are adapted from DOMPurify
+3.3.3 (src/tags.ts, src/attrs.ts, src/regexp.ts, src/purify.ts). These adaptations
+use DOMPurify's Apache License, Version 2.0 option. The license text is provided
+in LICENSE. The implementation has been rewritten in MoonBit and uses its own
+tree traversal and serializer.
+
+moonbit-community/html 0.2.2
+https://github.com/moonbit-community/html5-mbt
+Copyright 2025 International Digital Economy Academy
+Apache License, Version 2.0 (provided with the dependency).

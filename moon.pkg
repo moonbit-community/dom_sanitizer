@@ -1,1 +1,3 @@
-supported_targets = "js"
+import {
+  "moonbit-community/html",
+}
