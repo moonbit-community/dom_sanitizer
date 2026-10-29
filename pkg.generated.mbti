@@ -2,15 +2,15 @@
 package "moonbit-community/dom_sanitizer"
 
 // Values
-pub let namespace_html : String
+pub const NAMESPACE_HTML : String = "http://www.w3.org/1999/xhtml"
 
-pub let namespace_mathml : String
+pub const NAMESPACE_MATHML : String = "http://www.w3.org/1998/Math/MathML"
 
-pub let namespace_svg : String
+pub const NAMESPACE_SVG : String = "http://www.w3.org/2000/svg"
 
-pub let parser_media_type_html : String
+pub const PARSER_MEDIA_TYPE_HTML : String = "text/html"
 
-pub let parser_media_type_xhtml : String
+pub const PARSER_MEDIA_TYPE_XHTML : String = "application/xhtml+xml"
 
 pub fn sanitize(String, config? : Config) -> String
 
@@ -51,6 +51,7 @@ pub(all) struct Config {
   mathml_text_integration_points : Array[String]?
 }
 pub fn Config::default() -> Self
+pub impl Default for Config
 
 pub(all) struct CustomElementHandling {
   tag_name_check : ((String) -> Bool)?
@@ -58,6 +59,7 @@ pub(all) struct CustomElementHandling {
   allow_customized_built_in_elements : Bool
 }
 pub fn CustomElementHandling::default() -> Self
+pub impl Default for CustomElementHandling
 
 pub(all) struct UseProfilesConfig {
   html : Bool
@@ -66,6 +68,7 @@ pub(all) struct UseProfilesConfig {
   math_ml : Bool
 }
 pub fn UseProfilesConfig::default() -> Self
+pub impl Default for UseProfilesConfig
 
 // Type aliases
 

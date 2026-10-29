@@ -94,7 +94,9 @@ fn Policy::new(config : Config) -> Policy {
     attributes,
     namespaces: Set(
       config.allowed_namespaces.unwrap_or([
-        namespace_html, namespace_svg, namespace_mathml,
+        NAMESPACE_HTML,
+        NAMESPACE_SVG,
+        NAMESPACE_MATHML,
       ]),
     ),
     extra_tags,
@@ -196,9 +198,9 @@ fn Policy::valid_namespace(
   parent_ns : @html.Namespace,
 ) -> Bool {
   let uri = match ns {
-    HTML => namespace_html
-    SVG => namespace_svg
-    MathML => namespace_mathml
+    HTML => NAMESPACE_HTML
+    SVG => NAMESPACE_SVG
+    MathML => NAMESPACE_MATHML
   }
   if !self.namespaces.contains(uri) {
     return false

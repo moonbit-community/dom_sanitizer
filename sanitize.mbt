@@ -227,10 +227,10 @@ fn sanitize_tree(
 
 ///|
 fn sanitize_html(input : String, config : Config) -> String {
-  if config.parser_media_type != parser_media_type_html {
+  if config.parser_media_type != PARSER_MEDIA_TYPE_HTML {
     abort("dom_sanitizer supports only text/html; XHTML is not supported")
   }
-  if config.namespace_uri != namespace_html {
+  if config.namespace_uri != NAMESPACE_HTML {
     abort("dom_sanitizer supports only an HTML root namespace")
   }
   if config.allowed_uri_check is Some(_) {
