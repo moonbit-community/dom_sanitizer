@@ -1,8 +1,13 @@
 {
   "name": "moonbit-community-dom-sanitizer",
   "private": true,
-  "dependencies": {
-    "dompurify": "^3.3.3",
-    "jsdom": "^29.0.1"
+  "scripts": {
+    "test:reference": "node tools/reference.mjs",
+    "test:browser": "node tools/reference.mjs --browser"
+  },
+  "devDependencies": {
+    "dompurify": "3.3.3",
+    "jsdom": "29.0.1",
+    "playwright": "1.56.1"
   }
 }
