@@ -3,7 +3,7 @@ test "panic XHTML is explicitly unsupported" {
   ignore(
     @dom_sanitizer.sanitize("<p>x</p>", config={
       ..@dom_sanitizer.Config::default(),
-      parser_media_type: @dom_sanitizer.parser_media_type_xhtml,
+      parser_media_type: @dom_sanitizer.PARSER_MEDIA_TYPE_XHTML,
     }),
   )
 }
@@ -13,7 +13,7 @@ test "panic non HTML root is explicitly unsupported" {
   ignore(
     @dom_sanitizer.sanitize("<svg/>", config={
       ..@dom_sanitizer.Config::default(),
-      namespace_uri: @dom_sanitizer.namespace_svg,
+      namespace_uri: @dom_sanitizer.NAMESPACE_SVG,
     }),
   )
 }
@@ -23,7 +23,7 @@ test "panic MathML root is explicitly unsupported" {
   ignore(
     @dom_sanitizer.sanitize("<math/>", config={
       ..@dom_sanitizer.Config::default(),
-      namespace_uri: @dom_sanitizer.namespace_mathml,
+      namespace_uri: @dom_sanitizer.NAMESPACE_MATHML,
     }),
   )
 }

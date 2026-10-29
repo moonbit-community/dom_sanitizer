@@ -27,14 +27,16 @@ test {
 }
 ```
 
+`Config`, `UseProfilesConfig`, and `CustomElementHandling` implement `Default`.
 `Config::default()` retains the original policy and defaults. Options cover tag
 and attribute lists, profiles, custom elements, URI handling, content retention,
 template expressions, and DOM names. Default output contains the cleaned body
 contents; `whole_document` returns the document element. `force_body` preserves
 elements that the parser would otherwise place in the head.
 
-The public `sanitize`, `Config`, related structs, and namespace/media-type
-constants are unchanged. This release explicitly aborts for XHTML (or any media
+Namespace and media-type constants are exported as `NAMESPACE_HTML`,
+`NAMESPACE_SVG`, `NAMESPACE_MATHML`, `PARSER_MEDIA_TYPE_HTML`, and
+`PARSER_MEDIA_TYPE_XHTML`. This release explicitly aborts for XHTML (or any media
 type other than `text/html`), non-HTML root namespaces, and `allowed_uri_check`.
 SVG and MathML remain supported *inside* an HTML document. `safe_for_xml` is a
 sanitization option, not an XML parser switch.

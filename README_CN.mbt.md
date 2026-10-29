@@ -26,12 +26,14 @@ test {
 }
 ```
 
+`Config`、`UseProfilesConfig` 和 `CustomElementHandling` 均实现 `Default`。
 `Config::default()` 保留原有策略和默认值。配置选项涵盖标签及属性列表、预设配置
 （profiles）、自定义元素、URI 处理、内容保留、模板表达式和 DOM 名称处理。
 默认输出清洗后的正文内容；`whole_document` 返回文档根元素；`force_body`
 可保留原本会被解析器放入 head 的元素。
 
-公开的 `sanitize`、`Config`、相关结构体以及命名空间和媒体类型常量保持不变。
+命名空间和媒体类型常量以 `NAMESPACE_HTML`、`NAMESPACE_SVG`、`NAMESPACE_MATHML`、
+`PARSER_MEDIA_TYPE_HTML` 和 `PARSER_MEDIA_TYPE_XHTML` 公开。
 本版本对 XHTML（以及任何非 `text/html` 媒体类型）、非 HTML 根命名空间和
 `allowed_uri_check` 明确调用 `abort` 终止。仍然支持 HTML 文档*内部*的 SVG
 和 MathML。`safe_for_xml` 是清洗选项，不是 XML 解析器开关。

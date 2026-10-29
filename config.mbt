@@ -8,14 +8,12 @@ pub(all) struct UseProfilesConfig {
 }
 
 ///|
-pub fn UseProfilesConfig::default() -> UseProfilesConfig {
-  UseProfilesConfig::{
-    html: false,
-    svg: false,
-    svg_filters: false,
-    math_ml: false,
-  }
+pub impl Default for UseProfilesConfig with fn default() -> UseProfilesConfig {
+  { html: false, svg: false, svg_filters: false, math_ml: false, }
 }
+
+///|
+pub extend UseProfilesConfig with Default::{default}
 
 ///|
 /// Custom element handling options.
@@ -26,13 +24,16 @@ pub(all) struct CustomElementHandling {
 }
 
 ///|
-pub fn CustomElementHandling::default() -> CustomElementHandling {
-  CustomElementHandling::{
+pub impl Default for CustomElementHandling with fn default() -> CustomElementHandling {
+  {
     tag_name_check: None,
     attribute_name_check: None,
     allow_customized_built_in_elements: false,
   }
 }
+
+///|
+pub extend CustomElementHandling with Default::{default}
 
 ///|
 /// Configuration for `sanitize`.
@@ -71,8 +72,8 @@ pub(all) struct Config {
 }
 
 ///|
-pub fn Config::default() -> Config {
-  Config::{
+pub impl Default for Config with fn default() -> Config {
+  {
     allowed_tags: None,
     allowed_attr: None,
     allowed_namespaces: None,
@@ -92,8 +93,8 @@ pub fn Config::default() -> Config {
     add_forbid_contents: None,
     force_body: false,
     keep_content: true,
-    namespace_uri: namespace_html,
-    parser_media_type: parser_media_type_html,
+    namespace_uri: NAMESPACE_HTML,
+    parser_media_type: PARSER_MEDIA_TYPE_HTML,
     safe_for_templates: false,
     safe_for_xml: true,
     sanitize_dom: true,
@@ -106,3 +107,6 @@ pub fn Config::default() -> Config {
     mathml_text_integration_points: None,
   }
 }
+
+///|
+pub extend Config with Default::{default}

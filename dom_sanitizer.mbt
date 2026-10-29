@@ -1,22 +1,22 @@
 ///|
 /// HTML namespace constant used by `Config::namespace_uri`.
-pub let namespace_html = "http://www.w3.org/1999/xhtml"
+pub const NAMESPACE_HTML = "http://www.w3.org/1999/xhtml"
 
 ///|
 /// SVG namespace constant. Embedded SVG is supported within an HTML root.
-pub let namespace_svg = "http://www.w3.org/2000/svg"
+pub const NAMESPACE_SVG = "http://www.w3.org/2000/svg"
 
 ///|
 /// MathML namespace constant. Embedded MathML is supported within an HTML root.
-pub let namespace_mathml = "http://www.w3.org/1998/Math/MathML"
+pub const NAMESPACE_MATHML = "http://www.w3.org/1998/Math/MathML"
 
 ///|
 /// Default HTML parser media type.
-pub let parser_media_type_html = "text/html"
+pub const PARSER_MEDIA_TYPE_HTML = "text/html"
 
 ///|
 /// XHTML parser media type.
-pub let parser_media_type_xhtml = "application/xhtml+xml"
+pub const PARSER_MEDIA_TYPE_XHTML = "application/xhtml+xml"
 
 ///|
 /// Sanitize a dirty HTML string and return a safe HTML string.
