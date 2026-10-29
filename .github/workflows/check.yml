@@ -24,6 +24,9 @@ jobs:
         with:
           node-version: '22'
 
+      - name: Install JavaScript test dependencies
+        run: npm ci
+
       - name: tool versions
         run: |
           moon version --all
