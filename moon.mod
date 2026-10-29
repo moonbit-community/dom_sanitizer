@@ -12,4 +12,8 @@ keywords = [ ]
 
 description = ""
 
-preferred_target = "js"
+preferred_target = "wasm-gc"
+
+import {
+  "moonbit-community/html@0.2.2",
+}
