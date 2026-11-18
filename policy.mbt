@@ -127,11 +127,12 @@ fn Policy::new(config : Config) -> Policy {
 }
 
 ///|
+#derive(Eq)
 priv enum TagPermission {
   Allowed
   Custom
   Forbidden
-} derive(Eq)
+}
 
 ///|
 fn Policy::tag_permission(self : Policy, tag : String) -> TagPermission {
