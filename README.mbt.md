@@ -1,12 +1,15 @@
 # moonbit-community/dom_sanitizer
 
-A pure MoonBit HTML sanitizer using `moonbit-community/html@0.2.2` for HTML5
-document parsing. It supports HTML with embedded SVG and MathML on `wasm-gc`,
-`wasm`, `js`, and `native`. The default target is `wasm-gc`.
+A pure MoonBit library for sanitizing HTML, including embedded SVG and MathML.
+It uses `moonbit-community/html@0.2.4` to parse HTML5 and runs on `wasm-gc`,
+`wasm`, `js`, and `native`.
 
-Library builds and `moon test` need no npm packages, browser, DOM implementation,
-or JavaScript FFI. Parsing runs with scripting disabled; sanitization and
-serialization use private trees and explicit traversal stacks.
+You can build the library and run `moon test` without npm packages, a browser,
+a DOM implementation, or JavaScript FFI. The parser runs with scripting
+disabled. The sanitizer and serializer traverse a private tree using explicit
+stacks.
+
+## Examples
 
 ```mbt check
 ///|
@@ -27,46 +30,59 @@ test {
 }
 ```
 
+## Configuration
+
 `Config`, `UseProfilesConfig`, and `CustomElementHandling` implement `Default`.
-`Config::default()` retains the original policy and defaults. Options cover tag
+Use `Config::default()` for the original policy and defaults. Options cover tag
 and attribute lists, profiles, custom elements, URI handling, content retention,
-template expressions, and DOM names. Default output contains the cleaned body
-contents; `whole_document` returns the document element. `force_body` preserves
-elements that the parser would otherwise place in the head.
+template expressions, and DOM names.
 
-Namespace and media-type constants are exported as `NAMESPACE_HTML`,
+The sanitizer returns the cleaned body contents by default. Set `whole_document`
+to return the document element. `force_body` keeps elements the parser would
+otherwise put in the head.
+
+The library exports namespace and media-type constants `NAMESPACE_HTML`,
 `NAMESPACE_SVG`, `NAMESPACE_MATHML`, `PARSER_MEDIA_TYPE_HTML`, and
-`PARSER_MEDIA_TYPE_XHTML`. This release explicitly aborts for XHTML (or any media
-type other than `text/html`), non-HTML root namespaces, and `allowed_uri_check`.
-SVG and MathML remain supported *inside* an HTML document. `safe_for_xml` is a
-sanitization option, not an XML parser switch.
+`PARSER_MEDIA_TYPE_XHTML`. The sanitizer aborts on XHTML or any media type other
+than `text/html`, on a non-HTML root namespace, or when `allowed_uri_check` is
+set. `safe_for_xml` controls sanitization. The parser still uses HTML5 rules.
 
-The policy is ported from DOMPurify 3.3.3; see [THIRD_PARTY_NOTICES](THIRD_PARTY_NOTICES).
-As in that policy, styles are retained, and explicit extra tags, attributes, and
-callbacks extend what is trusted. Profiles replace the base allow lists; list
-and callback additions combine with OR. Attribute forbids always win. The
-legacy tag predicate can override a tag forbid, and custom-element handlers
-explicitly allow otherwise unknown names. Policy and traversal state are rebuilt
-for each call. DOM/form reserved names come from a fixed jsdom 29.0.1
-snapshot; `sanitize_named_props` additionally prefixes every `id` and `name`.
+## Sanitization policy
 
-Compatibility is checked against the original 218 tests without changing their
-assertions, plus configuration, parser, state-isolation, and security tests.
-There are two documented differences:
+The library uses a port of the DOMPurify 3.3.3 policy. See
+[THIRD_PARTY_NOTICES](THIRD_PARTY_NOTICES).
 
-- For `<table>before<tr><td><b>x</table>after`, the parser keeps `before` ahead of
-  the table. jsdom 29.0.1 moves it after the table. Chromium 141 and DOMPurify
-  running in Chromium agree with this implementation. Both outputs were checked
-  for dangerous nodes after reparsing; the exact exception is recorded in
-  `tools/cases.mjs`.
-- HTML/MathML integration-point overrides no longer leak into later calls.
-  An omitted option restores its default on each call.
+The sanitizer preserves styles. Adding tags or attributes through lists or
+callbacks expands the set of trusted markup. Profiles replace the base allow
+lists. A match in either the list or the callback adds the tag or attribute.
+Attribute forbids take precedence. The legacy tag predicate can override a tag
+forbid, and custom-element handlers can allow otherwise unknown names.
 
-Repeated sanitization is checked on stable samples. Options such as
-`sanitize_named_props` intentionally transform names on every call, so universal
-idempotence is not promised.
+Each call rebuilds the policy and traversal state. Reserved DOM and form names
+come from a fixed jsdom 29.0.1 snapshot. `sanitize_named_props` prefixes every
+`id` and `name`.
 
-To run the portable suite:
+## Compatibility
+
+The suite keeps all assertions from the original 218 tests and adds tests for
+configuration, parsing, state isolation, and security. It covers two known
+differences.
+
+- For `<table>before<tr><td><b>x</table>after`, the parser puts `before` ahead of
+  the table, matching Chromium 141 and DOMPurify running in Chromium. In jsdom
+  29.0.1 it appears after the table. Both outputs passed the check for dangerous
+  nodes after reparsing. The exception is recorded in
+  `scripts/cases.mjs`.
+- HTML/MathML integration-point overrides apply to one call. Options omitted
+  from the next call use their defaults.
+
+The suite checks repeated sanitization on stable samples. Options such as
+`sanitize_named_props` transform names on every call, so sanitizing the output
+again can change it.
+
+## Tests
+
+Run the suite across all four backends.
 
 ```sh
 moon check --target all --deny-warn
@@ -74,11 +90,11 @@ moon test --target all
 moon info && moon fmt
 ```
 
-The optional development oracle pins DOMPurify 3.3.3 and jsdom 29.0.1. The browser
-suite also uses pinned Playwright, inspects template contents, and reparses
-outputs in a live Chromium document three times. It includes 128 additional
-mutation cases and blocks all resource requests. These tools run in a separate
-CI job; the four backend jobs do not install npm dependencies.
+The optional reference suite uses DOMPurify 3.3.3 and jsdom 29.0.1. The browser
+suite uses a pinned Playwright version and adds 128 mutation cases. It blocks
+all resource requests, inspects template contents, and reparses each output
+three times in a live Chromium document. CI runs the browser suite in a separate
+job.
 
 ```sh
 npm ci
@@ -87,8 +103,10 @@ npx playwright install chromium
 npm run test:browser
 ```
 
-Reference fixtures are generated in a temporary project, leaving the working
-tree untouched. The policy data and fixed DOM-name snapshot can be regenerated
-with `node tools/generate-policy.mjs`; configuration fixtures can be recorded
-with `node tools/reference.mjs --record`. Review any resulting policy or
-expectation changes before accepting a new reference version.
+## Development scripts
+
+The reference suite writes its fixtures to a temporary project outside the
+working tree. To regenerate the policy data and the fixed DOM-name snapshot, run
+`node scripts/generate-policy.mjs`. To record configuration fixtures, run
+`node scripts/reference.mjs --record`. When upgrading the reference tools, review
+changes to the policy and expected results before adopting the new versions.

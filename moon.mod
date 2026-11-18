@@ -8,12 +8,18 @@ repository = "https://github.com/moonbit-community/dom_sanitizer"
 
 license = "Apache-2.0"
 
-keywords = [ ]
+keywords = [
+  "html",
+  "html-sanitizer",
+  "sanitizer",
+  "xss",
+  "security",
+  "svg",
+  "mathml",
+]
 
 description = "A pure MoonBit HTML sanitizer"
 
-preferred_target = "wasm-gc"
-
 import {
-  "moonbit-community/html@0.2.2",
+  "moonbit-community/html@0.2.4",
 }

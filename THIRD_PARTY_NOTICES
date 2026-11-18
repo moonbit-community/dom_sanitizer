@@ -9,7 +9,7 @@ use DOMPurify's Apache License, Version 2.0 option. The license text is provided
 in LICENSE. The implementation has been rewritten in MoonBit and uses its own
 tree traversal and serializer.
 
-moonbit-community/html 0.2.2
+moonbit-community/html 0.2.4
 https://github.com/moonbit-community/html5-mbt
 Copyright 2025 International Digital Economy Academy
 Apache License, Version 2.0 (provided with the dependency).

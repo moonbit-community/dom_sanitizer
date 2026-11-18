@@ -48,7 +48,7 @@ function jsConfig(config) {
 }
 
 if (process.argv.includes('--record')) {
-  const source = '// Recorded against DOMPurify 3.3.3 / jsdom 29.0.1 before the pure MoonBit migration.\n// Inputs, configuration mappings and documented exceptions: tools/cases.mjs.\n\n' + cases.map(c => `///|\ntest ${q(c.name)} {\n${c.difference ? `  // ${c.difference}\n` : ''}  assert_eq(@dom_sanitizer.sanitize(${q(c.input)}, config=${moonConfig(c.config)}), ${q(c.expected_moon ?? createDOMPurify(window).sanitize(c.input, jsConfig(c.config)))})\n}\n`).join('\n');
+  const source = '// Recorded against DOMPurify 3.3.3 / jsdom 29.0.1 before the pure MoonBit migration.\n// Inputs, configuration mappings and documented exceptions: scripts/cases.mjs.\n\n' + cases.map(c => `///|\ntest ${q(c.name)} {\n${c.difference ? `  // ${c.difference}\n` : ''}  assert_eq(@dom_sanitizer.sanitize(${q(c.input)}, config=${moonConfig(c.config)}), ${q(c.expected_moon ?? createDOMPurify(window).sanitize(c.input, jsConfig(c.config)))})\n}\n`).join('\n');
   fs.writeFileSync('configuration_test.mbt', source);
   console.log(`Recorded ${cases.length} configuration cases.`);
 } else {

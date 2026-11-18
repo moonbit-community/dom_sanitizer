@@ -1,5 +1,5 @@
 // Recorded against DOMPurify 3.3.3 / jsdom 29.0.1 before the pure MoonBit migration.
-// Inputs, configuration mappings and documented exceptions: tools/cases.mjs.
+// Inputs, configuration mappings and documented exceptions: scripts/cases.mjs.
 
 ///|
 test "empty allowed tags retains text" {
